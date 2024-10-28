@@ -1,25 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
-
+import "./App.css";
+import React, { useContext } from "react";
+import { ToDoProvider, ToDoContext } from "./Context/ToDoContext";
+import ToDoForm from "./components/ToDoForm";
+import ToDoList from "./components/ToDoList";
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <ToDoProvider>
+      <MainContent />
+    </ToDoProvider>
+  );
+}
+export default App;
+function MainContent() {
+  const { clearToDos, todos } = useContext(ToDoContext);
+  return (
+    <div>
+      <h1>Todo List App</h1>
+      <ToDoForm />
+      <ToDoList />
+      {todos.length > 0 && (
+        <button onClick={clearToDos}>Clear All Todos</button>
+      )}
     </div>
   );
 }
-
-export default App;
